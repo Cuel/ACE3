@@ -20,4 +20,8 @@ TRACE_1("params",_vehicle);
 
 if (_vehicle isKindOf "CAManBase") exitWith {false};
 
-((_vehicle getVariable ["ACE_isRepairVehicle", getNumber (configFile >> "CfgVehicles" >> typeOf _vehicle >> QGVAR(canRepair))]) > 0);
+// Backwards compability due to wiki saying isRepairVehicle was a boolean, this function only checked for an integer value.
+private _value = _vehicle getVariable ["ACE_isRepairVehicle", -1];
+if (_value in [0, false]) exitWith {false};
+if (_value isEqualTo true || {value > 0}) exitWith {true};
+getNumber (configFile >> "CfgVehicles" >> typeOf _vehicle >> QGVAR(canRepair)) > 0 // return
