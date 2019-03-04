@@ -42,6 +42,8 @@ if (isNull player) exitWith {
     ] call CBA_fnc_waitUntilAndExecute;
 };
 
+if (!_set && {player isKindOf QGVAR(virtual)}) exitWith {};
+
 // Remove any current deafness and disable volume updates while spectating
 if (["ace_hearing"] call EFUNC(common,isModLoaded)) then {
     EGVAR(hearing,disableVolumeUpdate) = _set;
